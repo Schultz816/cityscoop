@@ -1,58 +1,97 @@
-'use strict';
+// Include Server Dependencies
+var express = require("express");
+var bodyParser = require("body-parser");
+var logger = require("morgan");
+var mongoose = require("mongoose");
 
-//==MODULES==
-const express = require('express');
-const bodyParser = require('body-parser');
-const handlebars = require('express-handlebars');
-const session = require('express-session');
-const helmet = require('helmet');
-const compression = require('compression');
+// Require Note schema
+var Note = require("./models/note");
 
-//==Express Setup==
-const app = express();
-let PORT = process.env.PORT || 5000;
+// Create a new express app
+var app = express();
+// Sets an initial port. We'll use this later in our listener
+var PORT = process.env.PORT || 3000;
 
-//===Secure HTTP Headers===
-app.use(helmet());
-
-//===Gzip Compress All Responses===
-app.use(compression());
-
-
-//===Parsing===
+// Run Morgan for Logging
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+app.use(express.static("./public"));
 
-//===Static Files, CSS, Images, Fonts===
-app.use(express.static('./public'));
+// -------------------------------------------------
 
+// MongoDB configuration (Change this URL to your own DB)
+mongoose.connect("mongodb://admin:codingrocks@ds023674.mlab.com:23674/heroku_5ql1blnl");
+var db = mongoose.connection;
 
-//===Sessions===
-app.use(session({
-	secret: 'sandbox', 
-	cookie: { maxAge: 60000 } //20 minutes in milliseconds
-}));
+db.on("error", function(err) {
+  console.log("Mongoose Error: ", err);
+});
 
-//===Express-Handlebars===
-app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
 
+// -------------------------------------------------
 
-//===Routes===
-require('./controllers/api_routes.js')(app);
-require('./controllers/html_routes.js')(app);
+// Main "/" Route. This will redirect the user to our rendered React application
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/public/index.html");
+});
 
+// This is the route we will send GET all saved video-notes
+app.get("/api/saved", function(req, res) {
 
-//===Models===
-let db = require('./models');
+  
+  Note.find({}).sort([
+    ['date', 'descending']
+      ]).limit(5).exec(function(err, doc) {
 
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  });
+  console.log("You visited the saved route!");
+});
 
-//==Sync Database  & Start Server==
-db.sequelize.sync().then(function() {
-	app.listen(PORT, function() {
-		console.log('App listening on PORT ' + PORT);
-	});
+// This is the route we will send POST requests to save each video-note
+app.post("/api/saved", function(req, res) {
+
+  var newNote = new Note({
+      title: req.body.title,
+      date: req.body.date,
+      url: req.body.url
+  });
+  console.log(req.body);
+
+  newNote.save(function(err, doc){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  })
+  console.log("You made a post request");
+});
+
+app.delete('/api/saved/:id', function(req, res){
+
+    Note.findByIdAndRemove(req.params.id, 
+    function(error, note){
+      res.send({id: note._id});
+    });
+  });
+
+// -------------------------------------------------
+
+// Starting our express server
+app.listen(PORT, function() {
+  console.log("App listening on PORT: " + PORT);
 });
