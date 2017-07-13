@@ -5,7 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 // Require Note schema
-var Note = require("./models/note");
+var Note = require("./models/Note");
 
 // Create a new express app
 var app = express();
@@ -19,12 +19,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+//specifying the public folder which will keep index page and css
 app.use(express.static("./public"));
 
 // -------------------------------------------------
 
-// MongoDB configuration (Change this URL to your own DB)
-mongoose.connect("mongodb://admin:codingrocks@ds023674.mlab.com:23674/heroku_5ql1blnl");
+// MongoDB configuration
+mongoose.connect("mongodb://admin:happycoding@ds157702.mlab.com:57702/heroku_nmwxfkzn");
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -45,10 +46,11 @@ app.get("/", function(req, res) {
 // This is the route we will send GET all saved video-notes
 app.get("/api/saved", function(req, res) {
 
-  
-  Note.find({}).sort([
-    ['date', 'descending']
-      ]).limit(5).exec(function(err, doc) {
+  Note.find({})
+  // .sort([
+  //   ['date', 'descending']
+  //     ]).limit(5)
+  .exec(function(err, doc) {
 
     if (err) {
       console.log(err);
