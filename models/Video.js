@@ -6,10 +6,13 @@ var VideoSchema = new Schema ({
 	title: {
 		type: String
 	},
-	date : {
-		type: Date
-	},
-	url: {
+	categories: {
+    	gayborhood: ,
+    	restaurants:
+    	sightseeing:
+    	events:
+    }, 
+	location: {
 		type: String
 	}
 });
