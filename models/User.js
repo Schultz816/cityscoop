@@ -6,6 +6,9 @@ var UserSchema = new Schema ({
 	username: {
 		type: String
 	},
+		password: {
+		type: String
+	},
 	email: {
 		type: String
 	},
@@ -13,9 +16,6 @@ var UserSchema = new Schema ({
 		type: String
 	},
 	uploadedvids: {
-		type: String
-	},
-	password: {
 		type: String
 	}
 });
