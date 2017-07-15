@@ -7,14 +7,22 @@ var VideoSchema = new Schema ({
 		type: String
 	},
 	categories: {
-    	gayborhood: ,
-    	restaurants:
-    	sightseeing:
-    	events:
+    	gayborhood: String,
+    	restaurants: String,
+    	sightseeing: String,
+    	events: String
     }, 
 	location: {
 		type: String
-	}
+	},
+	url: {
+		type: String
+	},
+  	meta: {
+    	votes: Number,
+    	favs:  Number
+  	},
+  	date : Date
 });
 
 var Video = mongoose.model("Video", VideoSchema);
