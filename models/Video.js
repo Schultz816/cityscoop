@@ -6,6 +6,9 @@ var VideoSchema = new Schema ({
 	title: {
 		type: String
 	},
+	author : {
+		type: String
+	},
 	categories: {
     	gayborhood: String,
     	restaurants: String,
