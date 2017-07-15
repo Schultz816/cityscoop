@@ -62,19 +62,66 @@ app.get("/api/saved", function(req, res) {
   console.log("You visited the saved route!");
 });
 
+// This is the route we will send GET all saved video-notes
+app.get("/api/saveduser", function(req, res) {
+
+  User.find({})
+  // .sort([
+  //   ['date', 'descending']
+  //     ]).limit(5)
+  .exec(function(err, doc) {
+
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  });
+  console.log("You visited the saved route!");
+});
+
 // This is the route we will send POST requests to save each video-note
+//THIS NEEDS TO BE UPDATED!!
 app.post("/api/saved", function(req, res) {
 
   var newVideo = new Video({
+      title: req.body.username,
+      author: req.body.password,
+      categories: req.body.email,
+      location: req.body.email,
+      url: req.body.favoritevids,
+      meta: req.body.uploadedvids
+      data: req.body.uploadedvids
+  });
+  console.log(req.body);
+
+  newVideo.save(function(err, doc){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  })
+  console.log("You made a post request");
+});
+
+// This is the route we will send POST requests to save each user
+app.post("/api/saveduser", function(req, res) {
+
+  var newUser = new User({
       username: req.body.username,
       password: req.body.password,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       email: req.body.email,
       favoritevids: req.body.favoritevids,
       uploadedvids: req.body.uploadedvids
   });
   console.log(req.body);
 
-  newVideo.save(function(err, doc){
+  newUser.save(function(err, doc){
     if (err) {
       console.log(err);
     }
