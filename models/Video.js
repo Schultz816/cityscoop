@@ -10,7 +10,8 @@ var VideoSchema = new Schema ({
     	gayborhood: String,
     	restaurants: String,
     	sightseeing: String,
-    	events: String
+    	events: String,
+    	nightlife: String
     }, 
 	location: {
 		type: String
