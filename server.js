@@ -5,7 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 // Require Note schema
-var Note = require("./models/Note");
+var Video = require("./models/Video");
 
 // Create a new express app
 var app = express();
@@ -46,7 +46,7 @@ app.get("/", function(req, res) {
 // This is the route we will send GET all saved video-notes
 app.get("/api/saved", function(req, res) {
 
-  Note.find({})
+  Video.find({})
   // .sort([
   //   ['date', 'descending']
   //     ]).limit(5)
@@ -65,14 +65,16 @@ app.get("/api/saved", function(req, res) {
 // This is the route we will send POST requests to save each video-note
 app.post("/api/saved", function(req, res) {
 
-  var newNote = new Note({
-      title: req.body.title,
-      date: req.body.date,
-      url: req.body.url
+  var newVideo = new Video({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      favoritevids: req.body.favoritevids,
+      uploadedvids: req.body.uploadedvids
   });
   console.log(req.body);
 
-  newNote.save(function(err, doc){
+  newVideo.save(function(err, doc){
     if (err) {
       console.log(err);
     }
@@ -85,9 +87,9 @@ app.post("/api/saved", function(req, res) {
 
 app.delete('/api/saved/:id', function(req, res){
 
-    Note.findByIdAndRemove(req.params.id, 
+    Video.findByIdAndRemove(req.params.id, 
     function(error, note){
-      res.send({id: note._id});
+      res.send({id: video._id});
     });
   });
 
