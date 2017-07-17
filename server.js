@@ -6,6 +6,7 @@ var mongoose = require("mongoose");
 
 // Require Note schema
 var Video = require("./models/Video");
+var User = require("./models/User");
 
 // Create a new express app
 var app = express();
@@ -91,8 +92,8 @@ app.post("/api/saved", function(req, res) {
       categories: req.body.email,
       location: req.body.email,
       url: req.body.favoritevids,
-      meta: req.body.uploadedvids
-      data: req.body.uploadedvids
+      meta: req.body.uploadedvids,
+      data: req.body.data
   });
   console.log(req.body);
 
