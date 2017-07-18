@@ -14,15 +14,7 @@ var Main = React.createClass({
 
 	render: function(){
 
-		return(
-
-		<div className = "main-container">
-
-			<p>Hello World</ p>
-
-		</div>
-		)
-
+		return(<div>Hello d</ div>);
 
 	}
 
