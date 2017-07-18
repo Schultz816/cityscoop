@@ -87,13 +87,13 @@ app.get("/api/saveduser", function(req, res) {
 app.post("/api/saved", function(req, res) {
 
   var newVideo = new Video({
-      title: req.body.username,
-      author: req.body.password,
-      categories: req.body.email,
-      location: req.body.email,
-      url: req.body.favoritevids,
-      meta: req.body.uploadedvids,
-      data: req.body.data
+      title: req.body.title,
+      author: req.body.author,
+      categories: req.body.categories,
+      location: req.body.location,
+      url: req.body.url,
+      meta: req.body.meta,
+      date: req.body.date
   });
   console.log(req.body);
 
