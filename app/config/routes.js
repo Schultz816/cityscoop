@@ -1,25 +1,26 @@
 // Include the React library
-var React = require("react");
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Include the react-router module
-var router = require("react-router");
+const router = require("react-router");
 
 // Include the Route component for displaying individual routes
-var Route = router.Route;
+const Route = router.Route;
 
 // Include the Router component to contain all our Routes
 // Here where we can pass in some configuration as props
-var Router = router.Router;
+const Router = router.Router;
 
-var browserHistory = router.browserHistory;
+const browserHistory = router.browserHistory;
 
 // Include the IndexRoute (catch-all route)
-var IndexRoute = router.IndexRoute;
+const IndexRoute = router.IndexRoute;
 
 // Reference the high-level components
-var Main = require("../components/Main");
-var City = require("../components/City");
-var Member = require("../components/Member");
+const Main = require("../components/Main");
+const City = require("../components/City");
+const Member = require("../components/Member");
 
 
 // Export the Routes
