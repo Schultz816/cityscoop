@@ -1,31 +1,41 @@
 //index code to be moved here
 
 
-var React = require("react");
+import React from 'react';
+
 
 // Including the Link component from React Router to navigate within our application without full page reloads
-var Link = require("react-router").Link;
+// var Link = require("react-router").Link;
 
 // // Here we include all of the sub-components
 // var Child = require("./Search");
 
 //create component 
-var Main = React.createClass({
+class Main extends React.Component {
 
-	render: function(){
-		<div>
-			<div>Hellow World</ div>
+	render () {
+		return (
+			<div>
+		         <header id="fh5co-header" className="fh5co-cover js-fullheight" role="banner" style={{backgroundImage: 'url(images/cityBanners/maldives.jpg)'}} data-stellar-background-ratio="0.5">
+			       <div className="overlay" />
+			       <div className="container">
+			         <div className="row">
+			           <div className="col-md-12 text-center">
+			             <div className="display-t js-fullheight">
+			               <div className="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
+			                 <h1>The Maldives</h1>
+			                 <h2>Blue lagoons and white sand beaches</h2>
+			               </div>
+			             </div>
+			           </div>
+			         </div>
+			       </div>
+			     </header>
+		    </ div>
 
-			<div className="jumbotron">
-	            <h1>React Router</h1>
-	            <p><em>Because we can't afford to miss a minute of this video! #flylikeaneagle</em></p>
-	            <Link to="/member"><button className="btn btn-default">City</button></Link>
-	            <Link to="/city"><button className="btn btn-default">Member</button></Link>
-	        </div>
-	    </ div>
-	}
+	)}
 
 
-});
+};
 
 module.exports = Main;
