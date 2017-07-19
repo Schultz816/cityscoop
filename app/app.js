@@ -1,8 +1,9 @@
-//app.js responsible for render. 
-//Include dependencies and components
+// Include the Main React Dependencies
 var React = require("react");
 var ReactDOM = require("react-dom");
-var Main = require("./components/Main");
 
-//Take Main and dump into app of index.html
-ReactDOM.render(<Main />, document.getElementById("app"));
+// Grabs the Routes
+var routes = require("./config/routes");
+
+// Renders the contents according to the route page.
+ReactDOM.render(routes, document.getElementById("app"));
