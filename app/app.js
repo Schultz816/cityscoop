@@ -1,9 +1,8 @@
-// Include the Main React Dependencies
+//app.js responsible for render. 
+//Include dependencies and components
 var React = require("react");
 var ReactDOM = require("react-dom");
-
-// Include the main Component
 var Main = require("./components/Main");
 
-// This code here allows us to render our main component 
+//Take Main and dump into app of index.html
 ReactDOM.render(<Main />, document.getElementById("app"));

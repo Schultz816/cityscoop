@@ -5,7 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 // Require Note schema
-var Note = require("./models/note");
+var Video = require("./models/Video");
 
 // Create a new express app
 var app = express();
@@ -19,21 +19,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+//specifying the public folder which will keep index page and css
 app.use(express.static("./public"));
 
 // -------------------------------------------------
 
-// MongoDB configuration (Change this URL to your own DB)
-mongoose.connect("mongodb://admin:codingrocks@ds023674.mlab.com:23674/heroku_5ql1blnl");
-var db = mongoose.connection;
+// MongoDB configuration
+// mongoose.connect("mongodb://admin:happycoding@ds157702.mlab.com:57702/heroku_nmwxfkzn");
+// var db = mongoose.connection;
 
-db.on("error", function(err) {
-  console.log("Mongoose Error: ", err);
-});
+// db.on("error", function(err) {
+//   console.log("Mongoose Error: ", err);
+// });
 
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
+// db.once("open", function() {
+//   console.log("Mongoose connection successful.");
+// });
 
 // -------------------------------------------------
 
@@ -45,10 +46,30 @@ app.get("/", function(req, res) {
 // This is the route we will send GET all saved video-notes
 app.get("/api/saved", function(req, res) {
 
-  
-  Note.find({}).sort([
-    ['date', 'descending']
-      ]).limit(5).exec(function(err, doc) {
+  Video.find({})
+  // .sort([
+  //   ['date', 'descending']
+  //     ]).limit(5)
+  .exec(function(err, doc) {
+
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  });
+  console.log("You visited the saved route!");
+});
+
+// This is the route we will send GET all saved video-notes
+app.get("/api/saveduser", function(req, res) {
+
+  User.find({})
+  // .sort([
+  //   ['date', 'descending']
+  //     ]).limit(5)
+  .exec(function(err, doc) {
 
     if (err) {
       console.log(err);
@@ -61,16 +82,46 @@ app.get("/api/saved", function(req, res) {
 });
 
 // This is the route we will send POST requests to save each video-note
+//THIS NEEDS TO BE UPDATED!!
 app.post("/api/saved", function(req, res) {
 
-  var newNote = new Note({
-      title: req.body.title,
-      date: req.body.date,
-      url: req.body.url
+  var newVideo = new Video({
+      title: req.body.username,
+      author: req.body.password,
+      categories: req.body.email,
+      location: req.body.email,
+      url: req.body.favoritevids,
+      meta: req.body.uploadedvids,
+      data: req.body.uploadedvids
   });
   console.log(req.body);
 
-  newNote.save(function(err, doc){
+  newVideo.save(function(err, doc){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  })
+  console.log("You made a post request");
+});
+
+// This is the route we will send POST requests to save each user
+app.post("/api/saveduser", function(req, res) {
+
+  var newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      favoritevids: req.body.favoritevids,
+      uploadedvids: req.body.uploadedvids
+  });
+  console.log(req.body);
+
+  newUser.save(function(err, doc){
     if (err) {
       console.log(err);
     }
@@ -83,9 +134,9 @@ app.post("/api/saved", function(req, res) {
 
 app.delete('/api/saved/:id', function(req, res){
 
-    Note.findByIdAndRemove(req.params.id, 
+    Video.findByIdAndRemove(req.params.id, 
     function(error, note){
-      res.send({id: note._id});
+      res.send({id: video._id});
     });
   });
 
