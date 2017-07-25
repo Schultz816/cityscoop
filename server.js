@@ -25,16 +25,16 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB configuration
-mongoose.connect("mongodb://admin:happycoding@ds157702.mlab.com:57702/heroku_nmwxfkzn");
-var db = mongoose.connection;
+// mongoose.connect("mongodb://admin:happycoding@ds157702.mlab.com:57702/heroku_nmwxfkzn");
+// var db = mongoose.connection;
 
-db.on("error", function(err) {
-  console.log("Mongoose Error: ", err);
-});
+// db.on("error", function(err) {
+//   console.log("Mongoose Error: ", err);
+// });
 
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
+// db.once("open", function() {
+//   console.log("Mongoose connection successful.");
+// });
 
 // -------------------------------------------------
 
@@ -91,7 +91,7 @@ app.post("/api/saved", function(req, res) {
       categories: req.body.email,
       location: req.body.email,
       url: req.body.favoritevids,
-      meta: req.body.uploadedvids
+      meta: req.body.uploadedvids,
       data: req.body.uploadedvids
   });
   console.log(req.body);
