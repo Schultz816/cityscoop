@@ -1,0 +1,39 @@
+{
+  "name": "cityscoop",
+  "version": "1.0.0",
+  "description": "Search community sourced travel videos!",
+  "main": "public/index.html",
+  "scripts": {
+    "test": "echo\\\"Error: no test specified\\\" && exit 1",
+    "dev": "webpack & node server",
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "build": "webpack",
+    "prod": "NODE_ENV=production node server.js",
+    "postinstall": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Schultz816/cityscoop.git"
+  },
+  "author": "Brandon Campbell, Mary Ann Cho, Tiffani Elmore, Nathan Leung, Corey Schultz, Justin Taft",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.12.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.1",
+    "morgan": "^1.7.0",
+    "nw": "^0.23.6-1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.9",
+    "react-router": "^2.4.1",
+    "react-router-dom": "^4.1.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "webpack": "^1.13.1"
+  }
+}
