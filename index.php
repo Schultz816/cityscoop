@@ -1,1 +1,1 @@
-<?php include_once("public/portland.html"); ?>
+<?php include_once("portland.html"); ?>
